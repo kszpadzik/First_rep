@@ -1,4 +1,4 @@
-Web VPython 3.2
+import vpython as *
 
 #size of a window
 scene = canvas(widh=900,height=400)
