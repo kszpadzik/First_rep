@@ -105,7 +105,6 @@ def build_data_tree():
     child_24.add_children(child_37, 0)
     child_24.add_children(child_38, 1)
 
-
     return root
 
 if __name__ == '__main__':
