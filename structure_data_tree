@@ -1,0 +1,92 @@
+from random import randint
+
+
+class Tree_Node:
+    def __init__(self, data, side, level):
+        self.data = data
+        self.child_left = None
+        self.child_right = None
+        self.parent = None
+        self.side =  side
+        self.level = level
+    
+    def add_children(self, child, side):
+        child.parent = self
+        if side == 0:
+            self.child_left = child
+        if side == 1:
+            self.child_right = child
+
+    #function to find out how many spaces needed when Nodes printed 
+    def return_level(self):
+        level = 0
+        parent = self.parent
+        while parent:
+            level += 1
+            parent = parent.parent
+        return level
+
+    def print_tree(self):
+        spaces = ' ' * self.level*3
+        side = ""
+        if self.side == 0:
+            side = "left"
+        if self.side == 1:
+            side = "right"
+
+        print(spaces, side, self.data)
+        if self.child_left:
+            self.child_left.print_tree()
+            self.child_right.print_tree()
+
+def side_data_value(min_value, max_value):
+    if max_value - min_value > 1:
+        if max_value - min_value > 1 and max_value - min_value <= 9:
+            return randint(min_value+1, max_value-1)
+        else:
+            return randint(min_value, min_value+9)
+    else:
+        return 0
+
+
+def build_data_tree():
+    base = 100
+    root = Tree_Node(base, None, 0)
+
+    #left side 1 level
+    base_1 = side_data_value(base-10, base-1)
+    #testing line
+    #base_1 = 99
+    child_11 = Tree_Node(base_1, 0, 1)
+
+    #left side 2 level
+    child_21 = Tree_Node(side_data_value(base_1-10, base_1-1), 0, 2)
+    child_22 = Tree_Node(side_data_value(base_1, base), 1, 2)
+
+    #right side 1 level
+    base_1 = side_data_value(base + 1, base + 10)
+    #testing line
+    #base_1 = 101
+    child_12 = Tree_Node(base_1, 0, 1)
+
+    #left side 2 level
+    child_23 = Tree_Node(side_data_value(base + 1, base_1), 0, 2)
+    child_24 = Tree_Node(side_data_value(base_1, base_1 + 10), 1, 2)
+
+    #adding first level children
+    root.add_children(child_11, 0)
+    root.add_children(child_12, 1)
+
+    #adding second level children
+    child_11.add_children(child_21, 0)
+    child_11.add_children(child_22, 1)
+    child_12.add_children(child_23, 0)
+    child_12.add_children(child_24, 1)
+
+    return root
+
+if __name__ == '__main__':
+    root = build_data_tree()
+    root.print_tree()
+    pass
+
