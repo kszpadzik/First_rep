@@ -1,6 +1,5 @@
 from random import randint
 
-
 class Tree_Node:
     def __init__(self, data, side, level):
         self.data = data
@@ -9,7 +8,8 @@ class Tree_Node:
         self.parent = None
         self.side =  side
         self.level = level
-    
+
+    # for creating smaller branches 
     def add_children(self, child, side):
         child.parent = self
         if side == 0:
